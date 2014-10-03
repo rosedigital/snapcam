@@ -34,7 +34,7 @@ function downloadSnaps(callback){
 			var snapTime = new Date(snap.timestamp_sent).getTime();
 			var time = (timeNow - snapTime) / 1000;
 
-			if(time > 10){
+			if(time > 3){
 				break;
 			}
 

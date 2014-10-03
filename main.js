@@ -6,8 +6,8 @@ var gm = require('gm'),
 	downloadSnaps = require('./downloadSnaps.js'),
 
 	dir = '.',
-	inPath = dir + '/cam.jpg',
-    outPath = dir + '/out.jpg';
+	inPath = dir + '/cam.jpeg',
+    outPath = dir + '/out.jpeg';
 
 setInterval(function(){
 	downloadSnaps(function(users){
@@ -18,13 +18,13 @@ setInterval(function(){
 			console.log("No users");
 		}
 	});
-}, 10000);
+}, 3000);
 
 function takeAndSend(usernames){
 	takePicture(inPath, function(){
 		gm(inPath).size(function(err, img){
 			fixImage(inPath, img, function(){
-				sendSnap(5, outPath, usernames);
+				sendSnap(10, outPath, usernames);
 			});
 		});
 
@@ -37,18 +37,24 @@ function fixImage(inPath, img, callback){
 
 	gm(inPath)
 		.rotate('black', 90)
-		.crop(x, y, 0, 0)
-
-		.fill('#00000066')
-		.drawRectangle(0, 0, img.width, 70)
-		.fontSize(20)
-		.fill('#f5f5f5')
-		.drawText(0, 50, 'Hello from Floor 2, Innovation Space', 'North')
+		.crop(x - 120, y, 0, 0)
+	
 
 		.write(outPath, function(err){
 			if (err) return console.dir(arguments)
 				console.log(this.outname + " created  ::  " + arguments[3])
-				callback();
+
+				gm().subCommand('composite')
+					.gravity('center')
+					.in('-compose', 'Over', './watermark.png', outPath)
+
+					.write(outPath, function(err){
+						if (err) return console.dir(arguments)
+							console.log(this.outname + " created  ::  " + arguments[3])
+							callback();
+						}
+					);
+
 			}
 		);
 }
