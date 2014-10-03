@@ -1,26 +1,14 @@
-var fs = require('fs'),
-	camera = require('camera');
+var exec = require('child_process').exec;
+
 
 module.exports = takePicture;
 
 function takePicture(path, callback){
-	var webcam = camera.createStream();
-
-	webcam.on('error', function(err){
-		return console.log('error reading data', err);
+	var cmd = 'streamer -f jpeg -o '+ path +' -s 640x480 -j 100';
+	console.log("Running: '"+ cmd +"'.")
+	exec(cmd, function (error, stdout, stderr){
+		if(error) console.log("Error:", error);
+		callback();
 	});
-
-	webcam.on('data', function(buffer){
-		fs.writeFile(path, buffer, function(){
-			callback();
-		});
-
-		return webcam.destroy();
-
-	});
-
-	webcam.snapshot(function(err, buffer){});
-
-	webcam.record(1000, function(buffers){});
 
 }
