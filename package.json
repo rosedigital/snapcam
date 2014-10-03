@@ -1,0 +1,10 @@
+{
+  "name": "innovation-space-cam",
+  "description": "dunno",
+  "dependencies": {
+    "camera": "0.0.5",
+    "gm": "^1.16.0",
+    "q": "^1.0.1",
+    "snapchat": "^1.0.6"
+  }
+}
