@@ -4,6 +4,7 @@
   "dependencies": {
     "camera": "0.0.5",
     "gm": "^1.16.0",
+    "moment": "^2.8.3",
     "q": "^1.0.1",
     "snapchat": "^1.0.6"
   }
