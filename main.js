@@ -99,7 +99,9 @@ function takeAndSend(usernames){
 function fixImage(inPath, img, callback){
 	console.log('')
 	var x = img.height,
-		y = img.width;
+		y = img.width,
+
+		data = client.lastSync.data;
 
 	gm(inPath)
 		.rotate('black', 90)
@@ -110,10 +112,12 @@ function fixImage(inPath, img, callback){
 		.fontSize(20)
 		.font('Courier')
 		.fill('#f5f5f5')
-		.drawText(15, 30, 'innospacecam1', 'NorthWest')
+		.drawText(15, 30, data.username, 'NorthWest')
 		.drawText(15, 60, moment().format('h:mm A'), 'NorthWest')
 		.drawText(15, 85, moment().format('D/M/YY'), 'NorthWest')
+		.drawText(15, 110, data.score+' / '+ data.sent, 'NorthWest')
 		.drawText(0, 80, 'cam.rose.digital', 'South')
+
 
 		.write(outPath, function(err){
 			if (err) return console.dir(arguments)
