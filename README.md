@@ -2,7 +2,7 @@
 
 send webcam snaps to snapchatters
 
-**use at own risk, snapchat api is dodgy and unofficial - security risks**
+**use at own risk, snapchat api is dodgy and unofficial - security risks and potential account locking**
 
 ## install
 
