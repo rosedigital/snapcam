@@ -114,11 +114,9 @@ function fixImage(inPath, img, callback){
 		watermark = '--'+mode.name;
 	}
 
-	console.log(mode.colour, colour);
 	if(mode.colour == "random"){
 		colour = [Math.random()*100, Math.random()*100, Math.random()*100]
 	}
-	console.log(mode.colour, colour);
 
 	gm(inPath)
 		.rotate('black', 90)
