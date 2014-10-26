@@ -2,6 +2,8 @@
 
 send webcam snaps to snapchatters
 
+**use at own risk, snapchat api is dodgy and unofficial - security risks**
+
 ## install
 
 1. 'streamer': `sudo apt-get install streamer` (will add raspberry pi option)
