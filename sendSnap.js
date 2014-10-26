@@ -1,8 +1,4 @@
-var snapchat = require('snapchat'),
-	client = new snapchat.Client(),
-	config = require('./snapchat-config.json'),
-
-	Q = require('q'),
+var Q = require('q'),
 	fs = require('fs');
 
 module.exports = sendSnaps;

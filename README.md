@@ -1,15 +1,23 @@
-# innnovation-space-cam
+# snapcam
 
-send a snap to 'innovationspace'
+send webcam snaps to snapchatters
 
 ## install
 
-+ 'streamer': `sudo apt-get install streamer`
-+ GraphicsMagick: `sudo apt-get install graphicsmagick`
-+ `npm install`
+1. 'streamer': `sudo apt-get install streamer` (will add raspberry pi option)
+2. GraphicsMagick: `sudo apt-get install graphicsmagick`
+3. `npm install`
 
-copy `snapchat-config-sample.json` to `snapchat-config.json` and add your username and password
+## configure
+
+1. copy `config-sample.json` to `config.json`
+2. and add your snapchat username and password (_make sure your snapchat account can accept snaps from everyone_)
+3. [optional] add modes
 
 ## run
 
 `node main.js`
+
+## add more
+
+you can add more modes, by adding them to the `modes.json` file. you can add watermarks to the `img` dir too.

@@ -1,0 +1,20 @@
+{
+	"none":{
+		"font" : { "type": "Courier" },
+		"watermark": false
+	},
+	"innovationspace": {
+		"name" : "innovationspace",
+		"font" : { "type": "Courier", "colour": "#f5f5f5" },
+		"url" : "innovationspace.org.uk",
+		"colour": "random",
+		"watermark": true
+	},
+	"hackpompey": {
+		"name" : "hackpompey",
+		"font" : { "type": "Helvetica", "colour": "#f5f5f5" },
+		"colour": [10, 0, 0],
+		"url" : "hackpompey.co.uk",
+		"watermark": true
+	}
+}

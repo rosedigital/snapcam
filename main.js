@@ -3,7 +3,7 @@ var gm = require('gm'),
 
 	snapchat = require('snapchat'),
 	client = new snapchat.Client(),
-	config = require('./snapchat-config.json'),
+	config = require('./config.json'),
 
 	sendSnap = require('./sendSnap.js'),
 	takePicture = require('./takePicture.js'),
@@ -17,8 +17,8 @@ var gm = require('gm'),
     outPath = imgPath+'/out.jpeg'; // jpeg is important because the 'streamer' package depends on it
 
 
-console.log("Logging in as '" + config.username + "'...");
-client.login(config.username, config.password).then(function(){
+console.log("Logging in as '" + config.snapchat.username + "'...");
+client.login(config.snapchat.username, config.snapchat.password).then(function(){
 	
 	console.log("Logged in.");
 
@@ -26,9 +26,9 @@ client.login(config.username, config.password).then(function(){
 	syncSnaps(client);
 	
 	console.log('Start loop for new snaps.');
-	(function loop() {
+	(function loop(){
 		// random number between min and max
-		var timeMin =  45, timeMax = 60,
+		var timeMin =  5, timeMax = 20,
 			timeInterval =  (Math.floor(Math.random() * (timeMax - timeMin + 1)) + timeMin) * 1000;
 		console.log("Timeout in: "+ timeInterval/1000 +"s");
 	
@@ -80,17 +80,17 @@ function syncSnaps(client){
 	});
 }
 
-// test image shit
-// fixImage(inPath, { width: 640, height: 480 }, function(){});
-
 function takeAndSend(usernames){
+
+	var snapLength = 10; // length of the snap in secs 
+
 	takePicture(inPath, function(){
 		console.log('Picture taken and saved.');
 		gm(inPath).size(function(err, img){
 			
 			fixImage(inPath, img, function(){
 				console.log('Sending out snapchats!');
-				sendSnap(10, outPath, usernames);
+				sendSnap(client, snapLength, outPath, usernames);
 			});
 		});
 
@@ -98,27 +98,41 @@ function takeAndSend(usernames){
 }
 
 function fixImage(inPath, img, callback){
-	console.log('')
 	var x = img.height,
 		y = img.width,
 
-		data = client.lastSync.data;
+		data = client.lastSync.data,
+
+		mode = require('./modes.json')[config.mode],
+
+		font = { "type": mode.font.type || 'Arial', "colour": mode.font.colour || '#ffffff' },
+		colour =  mode.colour || [0, 0, 0],
+		url = mode.url || '',
+		watermark =  '';
+
+	if(mode.watermark){
+		watermark = '--'+mode.name;
+	}
+
+	console.log(mode.colour, colour);
+	if(mode.colour == "random"){
+		colour = [Math.random()*100, Math.random()*100, Math.random()*100]
+	}
+	console.log(mode.colour, colour);
 
 	gm(inPath)
 		.rotate('black', 90)
 		.crop(x - 120, y, 0, 0)
-  		.colorize(Math.random()*100, Math.random()*100, Math.random()*100)
-  		.contrast(2)
+  		// .colorize(colour[0], colour[1], colour[2])
 
 		.fontSize(20)
-		.font('Courier')
-		.fill('#f5f5f5')
-		.drawText(15, 30, data.username, 'NorthWest')
-		.drawText(15, 60, moment().format('h:mm A'), 'NorthWest')
-		.drawText(15, 85, moment().format('D/M/YY'), 'NorthWest')
-		.drawText(15, 110, data.score+' / '+ data.sent, 'NorthWest')
-		.drawText(0, 80, 'cam.rose.digital', 'South')
-
+		.font(font.type)
+		.fill(font.colour)
+		.drawText(20, 35, data.username, 'NorthWest')
+		.drawText(20, 65, moment().format('h:mm A'), 'NorthWest')
+		.drawText(20, 90, moment().format('D/M/YY'), 'NorthWest')
+		.drawText(20, 115, data.score+' / '+ data.sent, 'NorthWest')
+		// .drawText(0, 100, url, 'South')
 
 		.write(outPath, function(err){
 			if (err) return console.dir(arguments)
@@ -127,7 +141,7 @@ function fixImage(inPath, img, callback){
 
 				gm().subCommand('composite')
 					.gravity('center')
-					.in('-compose', 'Over', './watermark.png', outPath)
+					.in('-compose', 'Over', imgPath+'/watermark'+watermark+'.png', outPath)
 
 
 					.write(outPath, function(err){
