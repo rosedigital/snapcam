@@ -6,7 +6,7 @@ send webcam snaps to snapchatters
 
 ## install
 
-1. 'streamer': `sudo apt-get install streamer` (will add raspberry pi option)
+1. 'streamer': `sudo apt-get install ffmpeg` (will add raspberry pi option)
 2. GraphicsMagick: `sudo apt-get install graphicsmagick`
 3. `npm install` (the snapchat module is a bit broken, might need fixing)
 
