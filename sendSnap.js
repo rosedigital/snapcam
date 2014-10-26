@@ -3,14 +3,11 @@ var Q = require('q'),
 
 module.exports = sendSnaps;
 
-function sendSnaps(time, filename, recipients, callback){
-	client.login(config.username, config.password).then(function(){
-		var blob = fs.createReadStream(filename);
-		return client.upload(blob, false);
-	}, function(err) {
-		console.error("Failed to login");
-		console.error(err);
-	})
+function sendSnaps(client, time, filename, recipients, callback){
+
+	var blob = fs.createReadStream(filename);
+	
+	client.upload(blob, false)
 	.then(function(mediaId){
 		return Q.allSettled(recipients.map(function(recipient){
 			return client.send(mediaId, recipient, time).catch(function(err) {
