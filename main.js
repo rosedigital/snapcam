@@ -14,7 +14,7 @@ var gm = require('gm'),
 	dir = '.',
 	imgPath = dir+'/img',
 	inPath = imgPath+'/cam.jpeg',
-    outPath = imgPath+'/out.jpeg'; // jpeg is important because the 'streamer' package depends on it
+	outPath = imgPath+'/out.jpeg'; // jpeg is important because the 'streamer' package depends on it
 
 
 console.log("Logging in as '" + config.snapchat.username + "'...");
@@ -121,7 +121,7 @@ function fixImage(inPath, img, callback){
 	gm(inPath)
 		.rotate('black', 90)
 		.crop(x - 120, y, 0, 0)
-  		// .colorize(colour[0], colour[1], colour[2])
+		// .colorize(colour[0], colour[1], colour[2])
 
 		.fontSize(20)
 		.font(font.type)

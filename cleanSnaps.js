@@ -123,13 +123,13 @@ function getUnique(arr){
 	  var newId = element;
 	  
 	  newArr.forEach(function(element, index, array){
-	    if(element === newId) found = true;
+		if(element === newId) found = true;
 	  });
 	  
 	  if(!found){
-	    newArr.push(element);  
+		newArr.push(element);  
 	  }
-	    
+		
 	});
 
 	return newArr;
