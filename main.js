@@ -12,8 +12,9 @@ var gm = require('gm'),
 	moment = require('moment'),
 
 	dir = '.',
-	inPath = dir + '/cam.jpeg',
-    outPath = dir + '/out.jpeg';
+	imgPath = dir+'/img',
+	inPath = imgPath+'/cam.jpeg',
+    outPath = imgPath+'/out.jpeg'; // jpeg is important because the 'streamer' package depends on it
 
 
 console.log("Logging in as '" + config.username + "'...");
