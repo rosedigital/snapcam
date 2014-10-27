@@ -28,7 +28,7 @@ client.login(config.snapchat.username, config.snapchat.password).then(function()
 	console.log('Start loop for new snaps.');
 	(function loop(){
 		// random number between min and max
-		var timeMin =  20 timeMax = 45,
+		var timeMin =  20, timeMax = 45,
 			timeInterval =  (Math.floor(Math.random() * (timeMax - timeMin + 1)) + timeMin) * 1000;
 		console.log("Timeout in: "+ timeInterval/1000 +"s");
 	
