@@ -1,5 +1,7 @@
 # snapcam
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/zaccolley/snapcam.svg)](https://greenkeeper.io/)
+
 send webcam snaps to snapchatters
 
 **use at own risk, snapchat api is dodgy and unofficial - security risks and potential account locking**
